@@ -55,10 +55,16 @@ class ComposerStaticInitf5ce3b641be107e8a9e721266b48d712
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+            'PDepend\\' => 8,
         ),
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
+        ),
+        'C' => 
+        array (
+            'Composer\\XdebugHandler\\' => 23,
+            'Composer\\Pcre\\' => 14,
         ),
     );
 
@@ -187,9 +193,31 @@ class ComposerStaticInitf5ce3b641be107e8a9e721266b48d712
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PDepend\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend',
+        ),
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
+        'Composer\\XdebugHandler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/xdebug-handler/src',
+        ),
+        'Composer\\Pcre\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/pcre/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PHPMD\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpmd/phpmd/src/main/php',
+            ),
         ),
     );
 
@@ -219,6 +247,7 @@ class ComposerStaticInitf5ce3b641be107e8a9e721266b48d712
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf5ce3b641be107e8a9e721266b48d712::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf5ce3b641be107e8a9e721266b48d712::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf5ce3b641be107e8a9e721266b48d712::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitf5ce3b641be107e8a9e721266b48d712::$classMap;
 
         }, null, ClassLoader::class);
