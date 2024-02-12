@@ -22,7 +22,7 @@ class GotenbergApiService
             'headers' => [
                 'Content-Type'=>'multipart/form-data'
             ],
-            'body' => ['url'=> 'https://www.wattpad.com' ],
+            'body' => ['url'=> $htmlContent ],
                 
             ],
         );
