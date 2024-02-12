@@ -20,12 +20,9 @@ class GotenbergController extends AbstractController
     public function generatePdfFromHtml()
     {
         // Exemple : Appel du service pour générer un PDF à partir d'un contenu HTML
-        $htmlContent = '<p>Votre contenu HTML</p>';
+        $htmlContent = '';
         $pdf = $this->gotenbergApiService->callGotenbergApi($htmlContent);
 
-        // Traitez la réponse selon vos besoins
-        // ...
-
-        return new Response('PDF généré avec succès !');
+        return new Response($pdf,200,['content-type'=>'application/pdf']);
     }
 }

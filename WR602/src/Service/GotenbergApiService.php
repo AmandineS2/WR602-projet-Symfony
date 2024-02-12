@@ -12,17 +12,20 @@ class GotenbergApiService
     public function __construct(HttpClientInterface $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->gotenbergUrl = 'http://localhost:3000/';
+        $this->gotenbergUrl = 'http://localhost:3000/forms/chromium/convert/url';
     }
 
     public function callGotenbergApi($htmlContent)
     {
-        // Exemple d'appel à l'API Gotenberg en utilisant HttpClient
+        
         $response = $this->httpClient->request('POST', $this->gotenbergUrl, [
-            'body' => [
-                'html' => $htmlContent,
+            'headers' => [
+                'Content-Type'=>'multipart/form-data'
             ],
-        ]);
+            'body' => ['url'=> 'https://www.wattpad.com' ],
+                
+            ],
+        );
 
         $statusCode = $response->getStatusCode();
         // $statusCode = 200
@@ -33,7 +36,7 @@ class GotenbergApiService
 	    $content = $response->getContent();
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         
-      	$content = $response->toArray();
+      	//$content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
         return $content;
