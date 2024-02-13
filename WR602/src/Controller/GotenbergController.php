@@ -19,7 +19,7 @@ class GotenbergController extends AbstractController
         $this->gotenbergApiService = $gotenbergApiService;
     }
 
-    #[Route('/myRoute', name: 'first_route')]
+    #[Route('/pdf', name: 'first_route')]
     public function generatePdfFromHtml(Request $request)
 {
     $form = $this->createFormBuilder()

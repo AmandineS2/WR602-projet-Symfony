@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubscriptionRepository::class)]
 #[ApiResource]
+#[ORM\HasLifecycleCallbacks]
 class Subscription
 {
     #[ORM\Id]
@@ -32,6 +33,9 @@ class Subscription
 
     #[ORM\ManyToOne(inversedBy: 'subscription_id')]
     private ?User $user_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'SubscriptionId')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -106,6 +110,18 @@ class Subscription
     public function setUserId(?User $user_id): static
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

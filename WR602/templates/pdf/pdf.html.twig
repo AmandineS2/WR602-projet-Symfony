@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Génération de PDF</title>
-</head>
-<body>
-    <h1>Génération de PDF à partir d'un contenu HTML</h1>
-    {{ form(form) }}
-</body>
-</html>
+{% extends 'base.html.twig' %}
+{% block title %}Génération{% endblock %}
+
+{% block body %}
+    <div style="clear: both;">
+        <h1>Génération PDF</h1>
+        {{ form(form) }}
+    </div>
+{% endblock %}
+
