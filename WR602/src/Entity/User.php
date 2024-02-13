@@ -2,56 +2,50 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
-#[ApiResource]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $lastname = null;
+    #[ORM\Column]
+    private array $roles = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
-
-    #[ORM\Column(length: 255)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\ManyToOne(inversedBy: 'UserId')]
+    private ?Pdf $PdfId = null;
+
     #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    private ?string $Firstname = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: subscription::class)]
-    private Collection $subscription_id;
+    #[ORM\Column(length: 255)]
+    private ?string $Lastname = null;
 
-    #[ORM\ManyToOne(inversedBy: 'user_id')]
-    private ?Pdf $pdf_id = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $subscription_end_at = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updated_at = null;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
+    private Collection $SubscriptionId;
 
     public function __construct()
     {
-        $this->subscription_id = new ArrayCollection();
+        $this->SubscriptionId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,31 +65,39 @@ class User
         return $this;
     }
 
-    public function getLastname(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->lastname;
+        return (string) $this->email;
     }
 
-    public function setLastname(string $lastname): static
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->lastname = $lastname;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): static
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -107,92 +109,77 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
     {
-        return $this->role;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
-    public function setRole(string $role): static
+    public function getPdfId(): ?Pdf
     {
-        $this->role = $role;
+        return $this->PdfId;
+    }
+
+    public function setPdfId(?Pdf $PdfId): static
+    {
+        $this->PdfId = $PdfId;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->Firstname;
+    }
+
+    public function setFirstname(string $Firstname): static
+    {
+        $this->Firstname = $Firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->Lastname;
+    }
+
+    public function setLastname(string $Lastname): static
+    {
+        $this->Lastname = $Lastname;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, subscription>
+     * @return Collection<int, Subscription>
      */
     public function getSubscriptionId(): Collection
     {
-        return $this->subscription_id;
+        return $this->SubscriptionId;
     }
 
-    public function addSubscriptionId(subscription $subscriptionId): static
+    public function addSubscriptionId(Subscription $subscriptionId): static
     {
-        if (!$this->subscription_id->contains($subscriptionId)) {
-            $this->subscription_id->add($subscriptionId);
-            $subscriptionId->setUserId($this);
+        if (!$this->SubscriptionId->contains($subscriptionId)) {
+            $this->SubscriptionId->add($subscriptionId);
+            $subscriptionId->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeSubscriptionId(subscription $subscriptionId): static
+    public function removeSubscriptionId(Subscription $subscriptionId): static
     {
-        if ($this->subscription_id->removeElement($subscriptionId)) {
+        if ($this->SubscriptionId->removeElement($subscriptionId)) {
             // set the owning side to null (unless already changed)
-            if ($subscriptionId->getUserId() === $this) {
-                $subscriptionId->setUserId(null);
+            if ($subscriptionId->getUser() === $this) {
+                $subscriptionId->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getPdfId(): ?Pdf
-    {
-        return $this->pdf_id;
-    }
-
-    public function setPdfId(?Pdf $pdf_id): static
-    {
-        $this->pdf_id = $pdf_id;
-
-        return $this;
-    }
-
-    public function getSubscriptionEndAt(): ?\DateTimeInterface
-    {
-        return $this->subscription_end_at;
-    }
-
-    public function setSubscriptionEndAt(\DateTimeInterface $subscription_end_at): static
-    {
-        $this->subscription_end_at = $subscription_end_at;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): static
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

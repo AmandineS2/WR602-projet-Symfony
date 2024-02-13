@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PdfRepository::class)]
 #[ApiResource]
+#[ORM\HasLifecycleCallbacks]
 class Pdf
 {
     #[ORM\Id]
@@ -26,9 +27,13 @@ class Pdf
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\OneToMany(mappedBy: 'PdfId', targetEntity: User::class)]
+    private Collection $UserId;
+
     public function __construct()
     {
         $this->user_id = new ArrayCollection();
+        $this->UserId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,7 +87,7 @@ class Pdf
     {
         return $this->created_at;
     }
-
+    #[ORM\PrePersist]
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
