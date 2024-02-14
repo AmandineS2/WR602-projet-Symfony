@@ -20,6 +20,7 @@ class GotenbergController extends AbstractController
     }
 
     #[Route('/pdf', name: 'first_route')]
+    #[Security("is_granted('ROLE_USER')")]
     public function generatePdfFromHtml(Request $request)
 {
     $form = $this->createFormBuilder()

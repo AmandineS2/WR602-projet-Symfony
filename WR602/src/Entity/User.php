@@ -35,16 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Pdf $PdfId = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Firstname = null;
+    private ?string $Firstname = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $Lastname = null;
+    private ?string $Lastname = '';
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
     private Collection $SubscriptionId;
 
     public function __construct()
     {
+        
         $this->SubscriptionId = new ArrayCollection();
     }
 

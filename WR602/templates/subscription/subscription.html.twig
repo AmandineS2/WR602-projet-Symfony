@@ -1,6 +1,29 @@
 {% extends 'base.html.twig' %}
-    {% block title %}Historique des PDF{% endblock %}
-    {% block body %} 
-    <h1 style="clear: both;">Inscrivez-vous !</h1>   
-    {% endblock %}
-  
+{% block title %}Abonnement{% endblock %}
+
+{% block body %} 
+    <header style="border: 2px solid black; padding: 10px; text-align: center;">
+        <h1 style="clear: both;">Abonnements</h1>
+    </header>  
+
+    <section style="margin: 20px; text-align: center;">
+        <h2>Les avantages</h2>
+        <p>Les abonnements vous offre un accès illimité à la création de PDF, des fonctionnalités avancées comme la conversion de différents types de fichiers et l’édition de PDF, une haute qualité de conversion, une meilleure sécurité pour vos fichiers, un support client dédié et une expérience sans publicité.</p>
+        <br>
+        <h2>Les outils les plus populaires</h2>
+        <div style="display: flex; justify-content: space-around;">
+            <section style="margin: 20px; border: 2px solid darkblue; padding: 10px; text-align: center; flex: 1;">
+                <h2>Free</h2>
+                <p>Votre contenu...</p>
+            </section>
+            <section style="margin: 20px; border: 2px solid darkblue; padding: 10px; text-align: center; flex: 1;">
+                <h2>Pro</h2>
+                <p>Votre contenu...</p>
+            </section>
+            <section style="margin: 20px; border: 2px solid darkblue; padding: 10px; text-align: center; flex: 1;">
+                <h2>Business</h2>
+                <p>Votre contenu...</p>
+            </section>
+        </div>
+    </section>
+{% endblock %}
