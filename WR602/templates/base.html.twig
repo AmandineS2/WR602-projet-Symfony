@@ -8,10 +8,19 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
+            background-color: #7ec8e5;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        .logotitle {
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            
         }
         nav {
-            
-            border: 1px solid red;
+            background-color: #fefefe;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
         ul {
             list-style: none;
@@ -38,6 +47,9 @@
 </head>
 
 <body>
+    <div class="logotitle">
+    <h2>PDFSPARK</h2>
+    </div>
     <nav>
         <ul>
             <li><a href="/">Accueil</a></li>
@@ -51,7 +63,7 @@
 
     {% block body %}{% endblock %}
     <footer>
-        &copy; {{ "now"|date("Y") }} Votre Nom. Tous droits réservés.
+        © {{ "now"|date("Y") }} Votre Nom. Tous droits réservés.
     </footer>
 </body>
 </html>
