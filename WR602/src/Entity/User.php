@@ -43,6 +43,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
     private Collection $SubscriptionId;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $CreatedAt = null;
+
+    #[ORM\Column(length: 200, nullable: true)]
+    private ?string $Updated = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $UpdatedAt = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Subscription = null;
+
     public function __construct()
     {
         
@@ -181,6 +193,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $subscriptionId->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $CreatedAt): static
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $UpdatedAt): static
+    {
+        $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function getSubscription(): ?string
+    {
+        return $this->Subscription;
+    }
+
+    public function setSubscription(string $Subscription): static
+    {
+        $this->Subscription = $Subscription;
 
         return $this;
     }

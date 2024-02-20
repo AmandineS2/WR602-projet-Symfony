@@ -40,8 +40,8 @@
             color: white;
             text-align: center;
             padding: 10px 0;
-            margin-top: auto;
             width: 100%;
+            position: relative;
         }
     </style>
 </head>
@@ -53,11 +53,17 @@
     <nav>
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/subscription">Abonnement</a></li>
+            <li><a href="/subscription">Mon abonnement</a></li>
             <li><a href="/pdf">Génération</a></li>
             <li><a href="/history">Historique</a></li>
-            <li><a href="/login">Connexion</a></li>
-            <li><a href="/register">Inscrivez-vous</a></li>
+            {% if app.user %}
+            <li>
+                <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </li>
+            {% else %}
+                        <li><a href="/login">Se connecter</a></li>
+                        <li><a href="/register">Inscrivez-vous</a></li>
+        {% endif %}
         </ul>
     </nav>
 
