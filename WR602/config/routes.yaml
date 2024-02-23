@@ -15,6 +15,7 @@ homepage:
 subscription:
     path: /subscription
     controller: App\Controller\SubscriptionController::Subscription
+    
 
 pdf_generation:
     path: /pdf

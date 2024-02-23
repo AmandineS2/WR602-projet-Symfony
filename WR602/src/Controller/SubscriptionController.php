@@ -15,14 +15,14 @@ class SubscriptionController extends AbstractController
 
       $abonnementSelect = $request->request->get('abonnement');
 
-    $subscription = null;
-    $user = $this->getUser();
-    $currentSubscription = $abonnementSelect; // Utilisez le type d'abonnement sélectionné
-
-    return $this->render('Subscription/subscription.html.twig', [
-        'controller_name' => 'SubscriptionController',
-        'subscription' => $subscription,
-        'currentSubscription' => $currentSubscription
+      $subscription = null;
+      $user = $this->getUser();
+      $currentSubscription = $abonnementSelect ? $abonnementSelect : 'free';
+  
+      return $this->render('Subscription/subscription.html.twig', [
+          'controller_name' => 'SubscriptionController',
+          'subscription' => $subscription,
+          'currentSubscription' => $currentSubscription
 
         ]);
     }
