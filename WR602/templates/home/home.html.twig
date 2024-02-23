@@ -2,5 +2,122 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %} 
-    <h1 style="clear: both;">Bienvenue</h1>   
+<header style="padding: 10px; background-color:#4388a6; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1 style="color:#fefefe; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Illuminez votre productivité avec des PDF sur mesure !</h1>
+        <div style="padding: 10px;">
+            <button style="background-color: #2648a6; color: white; border: none; border-radius:20px; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; margin-right: 10px;">Parcourir tous les outils PDF</button>
+        </div>
+    </div>
+    <img src="/WR602/public/logo.png" alt="Logo" style="height: 60px;">
+</header>
+    <section style="margin: 20px; text-align: center;">
+        <h2>Les outils les plus populaires</h2>
+        <div style="display: flex; justify-content: space-around;">
+            <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+                <h2>Compresser un PDF</h2>
+                <p>Compressez vos PDF afin qu'ils soient plus léger.</p>
+            </section>
+            <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+                <h2>Convertir en PDF</h2>
+                <p>Convertissez vos PDF en document Word modifiable.</p>
+            </section>
+            <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+                <h2>Word en PDF</h2>
+                <p>Convertissez vos documents Word en PDF.</p>
+            </section>
+            <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+                <h2>Fusionner PDF</h2>
+                <p>Fusionnez vos PDF afin qu'ils n'en fasse qu'un.</p>
+            </section>
+        </div>
+        <br>
+        <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:20%;border-radius: 20px; height: 35px;">Commencer</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2>Les abonnements</h2>
+    </section>
+    <div style="display: flex; justify-content: space-around;">
+        <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+            <h2>Abonnement FREE</h2>
+            <h3>0€/mois</h3>
+            <br>
+            <ul style="text-align: left">
+                <li style="margin-inline: 10px;">Génération illimitée de PDF</li>
+                <br>
+                <li style="margin-inline: 10px;">Accès à une bibliothèque de modèles de PDF</li>
+                <br>
+                <li style="margin-inline: 10px;">Option pour personnaliser les PDF générés</li>
+                <br>
+                <li style="margin-inline: 10px;">Téléchargement de 4 PDF par jours</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form action="/subscription" method="post">
+                <input type="hidden" name="abonnement" value="free" />
+                <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;" type="submit">Obtenir</button>
+            </form>
+        </section>
+        <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+            <h2>Abonnement PRO</h2>
+            <h3>8€/mois</h3>
+            <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer;">Essai gratuit</button>
+            <ul style="text-align: left">
+                <li style="margin-inline: 10px;">Protection des fichiers par mot de passe</li>
+                <br>
+                <li style="margin-inline: 8px;">Conversion de documents numérisés en fichier PDF</li>
+                <br>
+                <li style="margin-inline: 10px;">Support client prioritaire</li>
+                <br>
+                <li style="margin-inline: 10px;">Application de Bureau</li>
+                <br>
+                <li style="margin-inline: 10px;">Pas de publicité</li>
+                <br>
+                <li style="margin-inline: 10px;">Ajout d'utilisateurs illimités</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form action="/subscription" method="post">
+                    <input type="hidden" name="abonnement" value="pro" />
+                <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;" type="submit">Acheter</button>
+            </form>
+        </section>
+        <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
+            <h2>Abonnement BUSINESS</h2>
+            <h3>15€/mois</h3>
+            <br>
+            <ul style="text-align: left">
+                <li style="margin-inline: 10px;">Ajout et gestion des utilisateurs illimité</li>
+                <br>
+                <li style="margin-inline: 10px;">Support technique prioritaire</li>
+                <br>
+                <li style="margin-inline: 10px;">Facturation sur mesure</li>
+                <br>
+                <li style="margin-inline: 10px;">Programme de formation pour les nouveaux utilisateurs</li>
+                <br>
+                <li style="margin-inline: 10px;">Paiements flexibles</li>
+                <br>
+                <li style="margin-inline: 10px;">Contrats personnalisé</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form action="/subscription" method="post">
+                <input type="hidden" name="abonnement" value="business" />
+                <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;" type="submit">Acheter</button>
+            </form>
+        </section>
+    </div>
 {% endblock %}

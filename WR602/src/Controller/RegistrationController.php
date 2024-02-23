@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Subscription;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +21,12 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        $abonnement = $entityManager->getRepository(Subscription::class)
+                                    ->findby(['title' => 'free']);
+        $abonnement = $abonnement[0];
+
+        $time = new \DateTimeImmutable;
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -28,7 +34,11 @@ class RegistrationController extends AbstractController
                     $user,
                     $form->get('plainPassword')->getData()
                 )
-            );
+            )
+            ->setCreatedAt($time)
+            ->setUpdatedAt($time)
+            ->setSubscription($abonnement)
+            ->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);
             $entityManager->flush();

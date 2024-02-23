@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Abonnement{% endblock %}
+{% block title %}Formulaire{% endblock %}
 
 {% block body %} 
     <header style="border: 2px solid black; padding: 10px; text-align: center;">
-        <h1 style="clear: both;">Mon abonnement</h1>
-    </header>  
-
-    <section style="margin: 20px; text-align: center;">
-        <h2>Vos avantages</h2>
-    {% if currentSubscription == 'free' %}
+        <h1 style="clear: both;">Formulaire abonnement</h1>
+    </header> 
+        <h2>Les abonnements</h2>
     <div style="display: flex; justify-content: space-around;">
         <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
             <h2>Abonnement FREE</h2>
@@ -23,11 +20,19 @@
                 <br>
                 <li style="margin-inline: 10px;">Téléchargement de 4 PDF par jours</li>
             </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;">Obtenir</button>
         </section>
-        {% elseif currentSubscription == 'pro' %}
         <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
             <h2>Abonnement PRO</h2>
             <h3>8€/mois</h3>
+            <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer;">Essai gratuit</button>
             <ul style="text-align: left">
                 <li style="margin-inline: 10px;">Protection des fichiers par mot de passe</li>
                 <br>
@@ -41,8 +46,13 @@
                 <br>
                 <li style="margin-inline: 10px;">Ajout d'utilisateurs illimités</li>
             </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;">Acheter</button>
         </section>
-        {% elseif currentSubscription == 'business' %}
         <section style="margin: 20px; border: 2px solid rgb(252, 252, 254); background-color:#fafafa; padding: 10px; text-align: center; flex: 1; border-radius: 20px;">
             <h2>Abonnement BUSINESS</h2>
             <h3>15€/mois</h3>
@@ -60,7 +70,12 @@
                 <br>
                 <li style="margin-inline: 10px;">Contrats personnalisé</li>
             </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button style="color: rgb(254, 254, 254); border: 2px solid #2e56c4; background-color: #2e56c4; cursor: pointer; width:30%;border-radius: 20px; height: 35px;">Acheter</button>
         </section>
-        {% endif %}
-    </div>
+    </div> 
 {% endblock %}

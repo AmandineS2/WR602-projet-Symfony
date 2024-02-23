@@ -21,19 +21,16 @@ class Pdf
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToMany(mappedBy: 'pdf_id', targetEntity: User::class)]
-    private Collection $user_id;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'PdfId', targetEntity: User::class)]
-    private Collection $UserId;
+    #[ORM\ManyToOne(inversedBy: 'pdfs')]
+    private ?User $user = null;
+
 
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
-        $this->UserId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,44 +50,25 @@ class Pdf
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUserId(): Collection
-    {
-        return $this->user_id;
-    }
-
-    public function addUserId(User $userId): static
-    {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id->add($userId);
-            $userId->setPdfId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserId(User $userId): static
-    {
-        if ($this->user_id->removeElement($userId)) {
-            // set the owning side to null (unless already changed)
-            if ($userId->getPdfId() === $this) {
-                $userId->setPdfId(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
     }
+
     #[ORM\PrePersist]
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    public function setCreatedAt(): void
     {
-        $this->created_at = $created_at;
+        $this->created_at = new \DateTimeImmutable();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

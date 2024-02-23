@@ -31,21 +31,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToOne(inversedBy: 'UserId')]
-    private ?Pdf $PdfId = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Firstname = null;
+    private ?string $Firstname = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $Lastname = null;
+    private ?string $Lastname = '';
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
-    private Collection $SubscriptionId;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $CreatedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $UpdatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Pdf::class)]
+    private Collection $pdfs;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Subscription $subscription = null;
 
     public function __construct()
     {
-        $this->SubscriptionId = new ArrayCollection();
+        
+        
+        $this->pdfs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,18 +127,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPdfId(): ?Pdf
-    {
-        return $this->PdfId;
-    }
-
-    public function setPdfId(?Pdf $PdfId): static
-    {
-        $this->PdfId = $PdfId;
-
-        return $this;
-    }
-
     public function getFirstname(): ?string
     {
         return $this->Firstname;
@@ -157,29 +154,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Subscription>
      */
-    public function getSubscriptionId(): Collection
+    
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->SubscriptionId;
+        return $this->CreatedAt;
     }
 
-    public function addSubscriptionId(Subscription $subscriptionId): static
+    public function setCreatedAt(?\DateTimeImmutable $CreatedAt): static
     {
-        if (!$this->SubscriptionId->contains($subscriptionId)) {
-            $this->SubscriptionId->add($subscriptionId);
-            $subscriptionId->setUser($this);
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $UpdatedAt): static
+    {
+        $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * @return Collection<int, Pdf>
+     */
+    public function getPdfs(): Collection
+    {
+        return $this->pdfs;
+    }
+
+    public function addPdf(Pdf $pdf): static
+    {
+        if (!$this->pdfs->contains($pdf)) {
+            $this->pdfs->add($pdf);
+            $pdf->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeSubscriptionId(Subscription $subscriptionId): static
+    public function removePdf(Pdf $pdf): static
     {
-        if ($this->SubscriptionId->removeElement($subscriptionId)) {
+        if ($this->pdfs->removeElement($pdf)) {
             // set the owning side to null (unless already changed)
-            if ($subscriptionId->getUser() === $this) {
-                $subscriptionId->setUser(null);
+            if ($pdf->getUser() === $this) {
+                $pdf->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): static
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }

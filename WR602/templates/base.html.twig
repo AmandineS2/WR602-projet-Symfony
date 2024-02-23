@@ -8,10 +8,19 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
+            background-color: #7ec8e5;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        .logotitle {
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            
         }
         nav {
-            
-            border: 1px solid red;
+            background-color: #fefefe;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
         ul {
             list-style: none;
@@ -31,26 +40,36 @@
             color: white;
             text-align: center;
             padding: 10px 0;
-            margin-top: auto;
             width: 100%;
+            position: relative;
         }
     </style>
 </head>
 
 <body>
+    <div class="logotitle">
+    <h2>PDFSPARK</h2>
+    </div>
     <nav>
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/login">Connexion</a></li>
-            <li><a href="/subscription">Abonnement</a></li>
+            <li><a href="/subscription">Mon abonnement</a></li>
             <li><a href="/pdf">Génération</a></li>
             <li><a href="/history">Historique</a></li>
+            {% if app.user %}
+            <li>
+                <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </li>
+            {% else %}
+                        <li><a href="/login">Se connecter</a></li>
+                        <li><a href="/register">Inscrivez-vous</a></li>
+        {% endif %}
         </ul>
     </nav>
 
     {% block body %}{% endblock %}
     <footer>
-        &copy; {{ "now"|date("Y") }} Votre Nom. Tous droits réservés.
+        © {{ "now"|date("Y") }} Votre Nom. Tous droits réservés.
     </footer>
 </body>
 </html>
