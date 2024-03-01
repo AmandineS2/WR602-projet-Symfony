@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Historique des PDF{% endblock %}
+    {% block body %} 
+    <h1 style="clear: both;">Votre historique de PDF</h1>
+    <div class="history-container">
+        <h1 class="history-title">Historique des PDF de {{ app.user.userIdentifier }}</h1>
+
+        {% if pdfs is empty %}
+            <p>Aucun PDF trouvé dans votre historique.</p>
+        {% else %}
+            <ul class="history-list">
+                {% for pdf in pdfs %}
+                    <div class="history-item">
+                        {{ pdf.Title }}
+                        <form action="{{ path('app_history') }}" method="get">
+                            <input type="hidden" name="generate_pdf" value="{{ pdf.Title }}">
+                            <button class="history-generate-pdf" type="submit">Générer PDF</button>
+                        </form>
+                        <div class="history-details">
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div> 
+    {% endblock %}

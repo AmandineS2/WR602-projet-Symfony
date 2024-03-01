@@ -1,19 +1,75 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #7ec8e5;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        .logotitle {
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            
+        }
+        nav {
+            background-color: #fefefe;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: right;
+        }
+        li {
+            display: inline;
+            margin: 0 10px;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<body>
+    <div class="logotitle">
+    <h2>PDFSPARK</h2>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/subscription">Mon abonnement</a></li>
+            <li><a href="/pdf">Génération</a></li>
+            <li><a href="/history">Historique</a></li>
+            {% if app.user %}
+            <li>
+                <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </li>
+            {% else %}
+                        <li><a href="/login">Se connecter</a></li>
+                        <li><a href="/register">Inscrivez-vous</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+
+    {% block body %}{% endblock %}
+    <footer>
+        © {{ "now"|date("Y") }} mmi21e07. Tous droits réservés.
+    </footer>
+</body>
 </html>
