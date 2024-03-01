@@ -3,7 +3,7 @@
     {% block body %} 
     <h1 style="clear: both;">Votre historique de PDF</h1>
     <div class="history-container">
-        <h1 class="history-title">L'historique de {{ app.user.userIdentifier }}</h1>
+        <h1 class="history-title">Historique des PDF de {{ app.user.userIdentifier }}</h1>
 
         {% if pdfs is empty %}
             <p>Aucun PDF trouvé dans votre historique.</p>
@@ -17,8 +17,6 @@
                             <button class="history-generate-pdf" type="submit">Générer PDF</button>
                         </form>
                         <div class="history-details">
-                            
-                            {# Ajoutez plus de détails sur le PDF ici si nécessaire #}
                         </div>
                     </div>
                 {% endfor %}
